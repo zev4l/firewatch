@@ -21,7 +21,7 @@ public class Regiao {
     }
 
     public int ardiveis() {
-        // Devolve número de casas + terrenos ainda não ardidos
+        // Devolve número de casas + terrenos (únicos elementos ardíveis) ainda não ardidos
     }
 
     public void registaFogo(Calendar data, List<Par<Integer, Integer>> sitios) {
@@ -53,18 +53,6 @@ public class Regiao {
     // Defini aqui os enums, apesar de sentir que deviam estar
     // no Simulador.java, porque não sei se o podemos editar.
 
-    enum EstadoSimulacao {
-        LIVRE,
-        AFETADO,
-        OBSTACULO
-    }
-
-    enum NivelPerigo {
-        VERDE,
-        AMARELO,
-        LARANJA,
-        VERMELHO
-    }
 
     // Podemos fazer mais métodos que estes, desde que sejam privados
 

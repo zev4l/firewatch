@@ -1,10 +1,6 @@
 import java.util.Calendar;
 import java.util.List;
 
-import Regiao.EstadoSimulacao;
-import Regiao.NivelPerigo; 
-//FIXME: Por alguma razão estes imports não funcionam, apesar de terem sido literalmente sugeridos pelo VSCode.
-
 
 public class Instituicao {
 
@@ -38,7 +34,7 @@ public class Instituicao {
     }
 
     public List<Par<String,NivelPerigo>> niveisDePerigo() {
-        // Devolve os nomes e níveis de perigo ed cara região registada,
+        // Devolve os nomes e níveis de perigo de cara região registada,
         // os níveis devem ser calculados relativamente à data corrente
         // e À constante RISCO_ANOS
     }
