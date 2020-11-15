@@ -1,6 +1,6 @@
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 
 public class Instituicao {
 
@@ -11,10 +11,12 @@ public class Instituicao {
     // região que serão afetados
     public static final int[] VENTOS_LIMITES = {0, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21};
 
+    public ArrayList<Regiao> gaylord;
     private String designacao;
 
 
     public Instituicao(String designacao) {
+        this.gaylord = new ArrayList<Regiao>();
         this.designacao = designacao;
     }
 
@@ -24,13 +26,19 @@ public class Instituicao {
                                 List<Par<Integer, Integer>> agua) {
 
         // Assumindo que ainda não existe uma região com este nome, 
-        //e que os dados são válidos, cria-a com os parãmetros referidos 
-
-    
+        //e que os dados são válidos, cria-a com os parametros referidos 
+        Regiao novaRegiao = new Regiao(nome, ultFogo, largura, altura, casas, estradas, agua);
+        gaylord.add(novaRegiao);
     }
 
     public boolean existeRegiao(String nome) {
         // Devolve true se a região estiver registada nesta instituição
+        for(Regiao i : this.gaylord){
+            if (nome == i.nome()){
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Par<String,NivelPerigo>> niveisDePerigo() {
