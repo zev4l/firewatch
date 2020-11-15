@@ -60,6 +60,16 @@ public class Regiao {
         // Regista um novo fogo para a região, acontecido na data data, em que arderam
         // os elementos referidos em sitios
         // TODO: registaFogo()
+
+        for (Par<Integer,Integer> p: sitios) {
+            if (this.ambiente[p.primeiro()][p.segundo()] == 'H' | this.ambiente[p.primeiro()][p.segundo()] == '.') {
+                this.ambiente[p.primeiro()][p.segundo()] = '!';
+            }
+
+            if (data.get(Calendar.YEAR) > this.ultFogo.get(Calendar.YEAR)) {
+                this.ultFogo = data;
+            }
+        }
     }
 
     public static boolean dadosValidos(int largura, int altura, 
