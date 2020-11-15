@@ -1,16 +1,36 @@
 import java.util.Calendar;
 import java.util.List;
+import java.util.Arrays;
 
 public class Regiao {
     private String nome;
     private Calendar ultFogo;
-    private int [][] ambiente;
+    private char [][] ambiente;
     
     public Regiao (String nome, Calendar ultFogo, int largura, int altura, List<Par<Integer, Integer>> casas, List<Par<Integer, Integer>> estradas, List<Par<Integer, Integer>> agua) {
         this.nome = nome;
         this.ultFogo = ultFogo;
-        this.ambiente = new int[largura][altura];
-        // ... TODO: Falta adicionar o resto dos atributos
+        this.ambiente = new char[largura][altura];
+        
+        // Definição do terreno inicial
+        for (char[] linha: ambiente) {
+            Arrays.fill(linha, '.');
+        }
+
+        // Definição das casas
+        for (Par p: casas) {
+            this.ambiente[(int) p.primeiro()][(int) p.segundo()] = 'H';
+        }
+
+        // Definição das estradas
+        for (Par p: estradas) {
+            this.ambiente[(int) p.primeiro()][(int) p.segundo()] = '=';
+        }
+
+        // Definição das aguas
+        for (Par p: agua) {
+            this.ambiente[(int) p.primeiro()][(int) p.segundo()] = '~';
+        }
 
         
     }
@@ -56,4 +76,9 @@ public class Regiao {
 
     // Podemos fazer mais métodos que estes, desde que sejam privados
 
+}
+
+
+public static void main(String[] args) {
+    
 }
