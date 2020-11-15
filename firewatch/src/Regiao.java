@@ -67,7 +67,12 @@ public class Regiao {
     }
 
     public String toString() {
-        // self-explanatory
+        for (char[] linha : this.ambiente){
+            for(char coluna : linha){
+                System.out.print(coluna);
+            }
+            System.out.println();
+        }
     }
 
     // Defini aqui os enums, apesar de sentir que deviam estar
