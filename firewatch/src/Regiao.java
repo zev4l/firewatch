@@ -43,7 +43,7 @@ public class Regiao {
     public int ardiveis() {
         // Devolve número de casas + terrenos (únicos elementos ardíveis) ainda não ardidos
 
-        int contador; 
+        int contador = 0; 
         
         for (char[] linha : this.ambiente) {
             for (char entrada: linha) {
@@ -72,24 +72,25 @@ public class Regiao {
         boolean validos = true;
 
         for (int i = 0; i < casas.size() && validos; i++) {
-            if (casas.get(i).primeiro() > largura | casas.get(i).segundo() > altura) {
+            if (casas.get(i).primeiro() > largura - 1 | casas.get(i).segundo() > altura - 1) {
                 validos = false;
             }
         }
 
         for (int i = 0; i < estradas.size() && validos; i++) {
-            if (estradas.get(i).primeiro() > largura | estradas.get(i).segundo() > altura) {
+            if (estradas.get(i).primeiro() > largura - 1| estradas.get(i).segundo() > altura - 1) {
                 validos = false;
             }
         }
 
         for (int i = 0; i < agua.size() && validos; i++) {
-            if (agua.get(i).primeiro() > largura | agua.get(i).segundo() > altura) {
+            if (agua.get(i).primeiro() > largura - 1 | agua.get(i).segundo() > altura - 1) {
                 validos = false;
             }
         }
         
         return validos;
+
     }
 
     public EstadoSimulacao[][] alvoSimulacao() {
@@ -98,7 +99,7 @@ public class Regiao {
 
         EstadoSimulacao[][] alvo = new EstadoSimulacao[this.ambiente.length][this.ambiente[0].length];
 
-        for (int linha; linha < this.ambiente.length; linha ++) {
+        for (int linha = 0; linha < this.ambiente.length; linha ++) {
             for (int entrada = 0; entrada < this.ambiente[linha].length; entrada ++) {
                 if (this.ambiente[linha][entrada] == '~' | this.ambiente[linha][entrada] == '=' | this.ambiente[linha][entrada] == '!') {
                     alvo[linha][entrada] = EstadoSimulacao.OBSTACULO;
@@ -116,12 +117,12 @@ public class Regiao {
     public NivelPerigo nivelPerigo(Calendar data, int[] tempoLimites) {
         // retorna o nível de perigo, ver forma de cálculo no início da pag.4 do enunciado
         int diferencaAnos = data.get(Calendar.YEAR) - this.ultFogo.get(Calendar.YEAR);
-        double nivelPerigo;
+        double nivelPerigo = 0.0;
         NivelPerigo nivelPerigoCor;
         int racio;
         int ardiveis = this.ardiveis();
         int totalDeElementos = this.ambiente.length * this.ambiente[0].length;
-        int obstaculos = totalDeElementos - ardiveis
+        int obstaculos = totalDeElementos - ardiveis;
 
 
 
@@ -137,10 +138,10 @@ public class Regiao {
         nivelPerigo *= 1+racio;
 
         if (nivelPerigo >= NivelPerigo.values().length) {
-            nivelPerigoCor = NivelPerigo[NivelPerigo.values().length - 1]; 
+            nivelPerigoCor = NivelPerigo.values()[NivelPerigo.values().length - 1]; 
         }
 
-        return nivelPerigoCor
+        return nivelPerigoCor;
 
     }
 
@@ -160,9 +161,4 @@ public class Regiao {
     // Podemos fazer mais métodos que estes, desde que sejam privados
 
 
-}
-
-
-public static void main(String[] args) {
-       
 }
