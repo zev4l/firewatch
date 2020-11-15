@@ -139,6 +139,8 @@ public class Regiao {
 
         if (nivelPerigo >= NivelPerigo.values().length) {
             nivelPerigoCor = NivelPerigo.values()[NivelPerigo.values().length - 1]; 
+        } else {
+            nivelPerigoCor = NivelPerigo.values()[(int) Math.round(nivelPerigo)];
         }
 
         return nivelPerigoCor;
