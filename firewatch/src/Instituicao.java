@@ -81,14 +81,14 @@ public class Instituicao {
     public void registaFogo(String regiao, Calendar data, List<Par<Integer, Integer>> sitios) {
         // regista na região referida um fogo acontecido na data referida. 
         // ATENÇÃO: APÓS ISTO PODE ACONTECER QUE A REGIÃO DE MAIOR NIVEL DE PERIGO MUDE.
-
+        
         for (Regiao r: this.gaylord) {
             if (r.nome().equals(regiao)) {
                 r.registaFogo(data, sitios);
             } 
         }
     }
-
+    
     public String toString() {
         // Self-explanatory
         StringBuilder output = new StringBuilder();
@@ -98,15 +98,17 @@ public class Instituicao {
         output.append(indexRegiaoMaiorPerigo() + "\n");
         output.append("-------- REGIOES -------\n");
         // FIXME: tiraste o for das regiões daqui dawg :/ e a mention do nome
-        output.append("Nivel perigo de fogo: \n");
-        output.append(regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS));
-        output.append(regiao.toString());
-        output.append(imprimirTracos(20));
+        for(Regiao regiao : this.gaylord){
+            output.append("Nivel perigo de fogo: \n");
+            output.append(regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS));
+            output.append(regiao.toString());
+            output.append(imprimirTracos(20));
 
+        }
         output.append(imprimirAsteriscos(27));
 
         return output.toString();
-    }
+}
 
     // Podemos fazer mais métodos que estes, desde que sejam privados
 
@@ -142,9 +144,8 @@ public class Instituicao {
     }
 
     private int indexRegiaoMaiorPerigo(){
-        int num;
         for(Regiao regiao : this.gaylord){
-            if(regiao.nome().equals(maiorPerigo().primeiro())){
+        if(regiao.nome().equals(maiorPerigo().primeiro())){
                 return(this.gaylord.indexOf(regiao));
             }
         }

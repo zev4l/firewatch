@@ -134,14 +134,7 @@ public class Regiao {
         int totalDeElementos = this.ambiente.length * this.ambiente[0].length;
         int obstaculos = totalDeElementos - ardiveis;
 
-
-
-        Arrays.sort(tempoLimites);
-        for(int celula = 0; celula < tempoLimites.length; celula++){
-            if(diferencaAnos <= tempoLimites[celula]){
-                nivelPerigo = tempoLimites[celula+1];
-            }
-        }
+        nivelPerigo = calculaNivelPerigo(tempoLimites, diferencaAnos);
 
         racio = (ardiveis - obstaculos)/totalDeElementos;
 
@@ -188,4 +181,15 @@ public class Regiao {
     //     nivelPerigo *= 1+racio;
     // }
 
+    private int calculaNivelPerigo(int[] perigoLimites, int diferencaAnos){
+        int nivelPerigo = 0;
+
+        Arrays.sort(perigoLimites);
+        for(int celula = 0; celula < perigoLimites.length; celula++) {
+            if (diferencaAnos <= perigoLimites[celula]) {
+                return perigoLimites[celula + 1];
+            }
+        }
+        return nivelPerigo;
+    }
 }
