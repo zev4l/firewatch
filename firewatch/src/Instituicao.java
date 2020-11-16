@@ -11,12 +11,12 @@ public class Instituicao {
     // região que serão afetados
     public static final int[] VENTOS_LIMITES = {0, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21};
 
-    public ArrayList<Regiao> gaylord;
+    public ArrayList<Regiao> shitpisscum;
     private String designacao;
 
 
     public Instituicao(String designacao) {
-        this.gaylord = new ArrayList<Regiao>();
+        this.shitpisscum = new ArrayList<Regiao>();
         this.designacao = designacao;
     }
 
@@ -28,12 +28,12 @@ public class Instituicao {
         // Assumindo que ainda não existe uma região com este nome, 
         //e que os dados são válidos, cria-a com os parametros referidos 
         Regiao novaRegiao = new Regiao(nome, ultFogo, largura, altura, casas, estradas, agua);
-        gaylord.add(novaRegiao);
+        shitpisscum.add(novaRegiao);
     }
 
     public boolean existeRegiao(String nome) {
         // Devolve true se a região estiver registada nesta instituição
-        for(Regiao regiao : this.gaylord){
+        for(Regiao regiao : this.shitpisscum){
             if (nome.equals(regiao.nome())){
                 return true;
             }
@@ -49,7 +49,7 @@ public class Instituicao {
 
         List<Par<String,NivelPerigo>> output = new ArrayList<Par<String,NivelPerigo>>();
 
-        for (Regiao r: gaylord) {
+        for (Regiao r: shitpisscum) {
             Par<String,NivelPerigo> elemento = new Par<String,NivelPerigo>(r.nome(), r.nivelPerigo(Calendar.getInstance(), RISCO_ANOS));
             output.add(elemento);
         }
@@ -61,8 +61,8 @@ public class Instituicao {
     public EstadoSimulacao[][] alvoSimulacao() {
         // Devolve alvo da simulação da região de maior nível de perigo
         
-        Regiao output = this.gaylord.get(0);
-        for (Regiao regiao: this.gaylord){
+        Regiao output = this.shitpisscum.get(0);
+        for (Regiao regiao: this.shitpisscum){
             int nivelPerigoRegiao = regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS).ordinal();
             int nivelPerigoOutput = output.nivelPerigo(Calendar.getInstance(), RISCO_ANOS).ordinal();
             if(nivelPerigoRegiao > nivelPerigoOutput){
@@ -76,7 +76,7 @@ public class Instituicao {
         // Devolve true se existe pelo menos uma região com elementos ardíveis
 
 
-        for (Regiao r: this.gaylord) {
+        for (Regiao r: this.shitpisscum) {
             if (r.ardiveis() > 0) {
                 return true;
             }
@@ -89,7 +89,7 @@ public class Instituicao {
         // regista na região referida um fogo acontecido na data referida. 
         // ATENÇÃO: APÓS ISTO PODE ACONTECER QUE A REGIÃO DE MAIOR NIVEL DE PERIGO MUDE.
         
-        for (Regiao r: this.gaylord) {
+        for (Regiao r: this.shitpisscum) {
             if (r.nome().equals(regiao)) {
                 r.registaFogo(data, sitios);
             } 
@@ -104,7 +104,7 @@ public class Instituicao {
         output.append("Regiao maior perigo: ");
         output.append(indexRegiaoMaiorPerigo() + "\n");
         output.append("-------- REGIOES -------\n");
-        for(Regiao regiao : this.gaylord){
+        for(Regiao regiao : this.shitpisscum){
             output.append("Nivel perigo de fogo: ");
             output.append(regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS) + "\n");
             output.append(regiao.toString());
@@ -150,9 +150,9 @@ public class Instituicao {
     }
 
     private int indexRegiaoMaiorPerigo(){
-        for(Regiao regiao : this.gaylord){
+        for(Regiao regiao : this.shitpisscum){
         if(regiao.nome().equals(maiorPerigo().primeiro())){
-                return(this.gaylord.indexOf(regiao));
+                return(this.shitpisscum.indexOf(regiao));
             }
         }
         return(9999);
