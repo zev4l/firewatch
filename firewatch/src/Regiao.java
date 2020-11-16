@@ -147,7 +147,7 @@ public class Regiao {
 
         nivelPerigo *= 1+racio;
 
-        if (nivelPerigo >= NivelPerigo.values().length) {
+        if (Math.round(nivelPerigo) >= NivelPerigo.values().length) {
             nivelPerigoCor = NivelPerigo.values()[NivelPerigo.values().length - 1]; 
         } else {
             nivelPerigoCor = NivelPerigo.values()[(int) Math.round(nivelPerigo)];
@@ -159,7 +159,9 @@ public class Regiao {
 
     public String toString() {
         StringBuilder output = new StringBuilder();
-        output.append("Nome: " + this.nome() + "  Data ult. fogo: " + this.ultFogo + "\n");
+        output.append("Nome: " + this.nome() + "  Data ult. fogo: " + this.ultFogo.get(Calendar.YEAR) + "/"
+                               + this.ultFogo.get(Calendar.MONTH) + "/"
+                               + this.ultFogo.get(Calendar.DAY_OF_MONTH) + "\n");
         for (char[] linha : this.ambiente){
             for(char coluna : linha){
                 output.append(coluna);
@@ -172,18 +174,18 @@ public class Regiao {
 
     // Podemos fazer mais métodos que estes, desde que sejam privados
 
-    private double valorPerigo(int diferencaAnos, int[] tempoLimites, int totalDeElementos,){
-        double nivelPerigo = 0.0;
-        int ratio;
-        for(int celula = 0; celula < tempoLimites.length; celula++){
-            if(diferencaAnos <= tempoLimites[celula]){
-                nivelPerigo = tempoLimites[celula+1];
-            }
-        }
+    // private double valorPerigo(int diferencaAnos, int[] tempoLimites, int totalDeElementos, int ardiveis, int obstaculos){
+    //     double nivelPerigo = 0.0;
+    //     int ratio;
+    //     for(int celula = 0; celula < tempoLimites.length; celula++){
+    //         if(diferencaAnos <= tempoLimites[celula]){
+    //             nivelPerigo = tempoLimites[celula+1];
+    //         }
+    //     }
 
-        racio = (ardiveis - obstaculos)/totalDeElementos;
+    //     racio = (ardiveis - obstaculos)/totalDeElementos;
 
-        nivelPerigo *= 1+racio;
-    }
+    //     nivelPerigo *= 1+racio;
+    // }
 
 }

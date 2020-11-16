@@ -33,11 +33,12 @@ public class Instituicao {
 
     public boolean existeRegiao(String nome) {
         // Devolve true se a região estiver registada nesta instituição
-        for(Regiao i : this.gaylord){
-            if (nome == i.nome()){
+        for(Regiao regiao : this.gaylord){
+            if (nome.equals(regiao.nome())){
                 return true;
             }
         }
+        
         return false;
     }
 
@@ -68,7 +69,7 @@ public class Instituicao {
         // Devolve true se existe pelo menos uma região com elementos ardíveis
 
 
-        for (Regiao r: gaylord) {
+        for (Regiao r: this.gaylord) {
             if (r.ardiveis() > 0) {
                 return true;
             }
@@ -80,9 +81,12 @@ public class Instituicao {
     public void registaFogo(String regiao, Calendar data, List<Par<Integer, Integer>> sitios) {
         // regista na região referida um fogo acontecido na data referida. 
         // ATENÇÃO: APÓS ISTO PODE ACONTECER QUE A REGIÃO DE MAIOR NIVEL DE PERIGO MUDE.
-        // TODO
 
-
+        for (Regiao r: this.gaylord) {
+            if (r.nome().equals(regiao)) {
+                r.registaFogo(data, sitios);
+            } 
+        }
     }
 
     public String toString() {
@@ -90,12 +94,13 @@ public class Instituicao {
         StringBuilder output = new StringBuilder();
         output.append(imprimirAsteriscos(27));
         output.append("Designacao: " + this.designacao + "\n");   
-        output.append("Regiao maior perigo: \n");
+        output.append("Regiao maior perigo: ");
+        output.append(indexRegiaoMaiorPerigo() + "\n");
         output.append("-------- REGIOES -------\n");
-        for(Regiao regiao : gaylord){
-            output.append("Nivel perigo de fogo: \n");
-            output.append(regiao.toString());
-            output.append(imprimirTracos(20));
+        output.append("Nivel perigo de fogo: \n");
+        output.append(regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS));
+        output.append(regiao.toString());
+        output.append(imprimirTracos(20));
         }
         output.append(imprimirAsteriscos(27));
 
@@ -121,4 +126,28 @@ public class Instituicao {
         output.append("\n");
         return output.toString();
     }
+
+    private Par<String,NivelPerigo> maiorPerigo() {
+        List<Par<String,NivelPerigo>> teste = niveisDePerigo();
+        Par<String,NivelPerigo> maisPerigosa = teste.get(0);
+
+        for (Par<String,NivelPerigo> r: teste) {
+            if (r.segundo().ordinal() > maisPerigosa.segundo().ordinal()) {
+                maisPerigosa = r;
+            } 
+        }
+
+        return maisPerigosa;
+    }
+
+    private int indexRegiaoMaiorPerigo(){
+        int num;
+        for(Regiao regiao : this.gaylord){
+            if(regiao.nome().equals(maiorPerigo().primeiro())){
+                return(this.gaylord.indexOf(regiao));
+            }
+        }
+        return(9999);
+    }
+
 }
