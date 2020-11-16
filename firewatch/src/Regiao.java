@@ -36,10 +36,18 @@ public class Regiao {
     }
     
 
+    
+    /** 
+     * @return String
+     */
     public String nome() {
         return this.nome;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int ardiveis() {
         // Devolve número de casas + terrenos (únicos elementos ardíveis) ainda não ardidos
 
@@ -56,6 +64,10 @@ public class Regiao {
         return contador;
     }
 
+    
+    /** 
+     * @param sitios
+     */
     public void registaFogo(Calendar data, List<Par<Integer, Integer>> sitios) {
         // Regista um novo fogo para a região, acontecido na data data, em que arderam
         // os elementos referidos em sitios
@@ -71,6 +83,17 @@ public class Regiao {
         }
     }
 
+    
+    /** 
+     * @param largura
+     * @param altura
+     * @param casas
+     * @param List<Par<Integer
+     * @param estradas
+     * @param List<Par<Integer
+     * @param agua
+     * @return boolean
+     */
     public static boolean dadosValidos(int largura, int altura, 
                                         List<Par<Integer, Integer>> casas,
                                         List<Par<Integer, Integer>> estradas,
@@ -102,6 +125,10 @@ public class Regiao {
 
     }
 
+    
+    /** 
+     * @return EstadoSimulacao[][]
+     */
     public EstadoSimulacao[][] alvoSimulacao() {
         // devolve matriz correspondente ao ambiente atual em que os terrenos e casas não ardidos são EstadoSimulacao.LIVRE
         // e a água, estradas e elementos já ardidos são EstadoSimulacao.OBSTACULO
@@ -123,6 +150,12 @@ public class Regiao {
 
     }
 
+    
+    /** 
+     * @param data
+     * @param tempoLimites
+     * @return NivelPerigo
+     */
     public NivelPerigo nivelPerigo(Calendar data, int[] tempoLimites) {
         // retorna o nível de perigo, ver forma de cálculo no início da pag.4 do enunciado
         int diferencaAnos = data.get(Calendar.YEAR) - this.ultFogo.get(Calendar.YEAR);
@@ -140,6 +173,10 @@ public class Regiao {
 
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         StringBuilder output = new StringBuilder();
         output.append("Nome: " + this.nome() + "  Data ult. fogo: " + this.ultFogo.get(Calendar.YEAR) + "/"
@@ -155,6 +192,12 @@ public class Regiao {
     }
 
 
+    
+    /** 
+     * @param perigoLimites
+     * @param celula++
+     * @return double
+     */
     // Podemos fazer mais métodos que estes, desde que sejam privados
 
 
@@ -175,6 +218,12 @@ public class Regiao {
         return celulaPerigo;
     }
 
+    
+    /** 
+     * @param perigoLimites
+     * @param diferencaAnos
+     * @return double
+     */
     private double calculaNivelPerigo(int[] perigoLimites, int diferencaAnos) {
 
         double nivelPerigo = calculaCelulaPerigo(perigoLimites, diferencaAnos);
