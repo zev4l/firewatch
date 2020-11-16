@@ -195,27 +195,19 @@ public class Regiao {
     
     /** 
      * @param perigoLimites
-     * @param celula++
+     * @param diferencaAnos
      * @return double
      */
-    // Podemos fazer mais métodos que estes, desde que sejam privados
-
-
-    //     racio = (ardiveis - obstaculos)/totalDeElementos;
-
-    //     nivelPerigo *= 1+racio;
-    // }
-
-    private static double calculaCelulaPerigo(int[] perigoLimites, int diferencaAnos){ //TODO: Rename to calculaIndiceLimitePerigo
+    private static int calculaIndiceLimitePerigo(int[] perigoLimites, int diferencaAnos){
 
         Arrays.sort(perigoLimites);
-        int celulaPerigo = 0;
-        for(int celula = 0; celula < perigoLimites.length; celula++) {
-            if (diferencaAnos <= perigoLimites[celula]) {
-                return celula;
+        int indicePerigo = 0;
+        for(int indice = 0; indice < perigoLimites.length; indice++) {
+            if (diferencaAnos <= perigoLimites[indice]) {
+                return indice;
             }
         }
-        return celulaPerigo;
+        return indicePerigo;
     }
 
     
@@ -226,7 +218,7 @@ public class Regiao {
      */
     private double calculaNivelPerigo(int[] perigoLimites, int diferencaAnos) {
 
-        double nivelPerigo = calculaCelulaPerigo(perigoLimites, diferencaAnos);
+        double nivelPerigo = (double) calculaIndiceLimitePerigo(perigoLimites, diferencaAnos);
         int ardiveis = this.ardiveis();
         int totalDeElementos = this.ambiente.length * this.ambiente[0].length;
         int obstaculos = totalDeElementos - ardiveis;
