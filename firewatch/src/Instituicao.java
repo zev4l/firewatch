@@ -102,7 +102,7 @@ public class Instituicao {
         output.append(imprimirAsteriscos(27));
         output.append("Designacao: " + this.designacao + "\n");   
         output.append("Regiao maior perigo: ");
-        output.append(indexRegiaoMaiorPerigo() + "\n");
+        output.append(indiceRegiaoMaiorPerigo() + "\n");
         output.append("-------- REGIOES -------\n");
         for(Regiao regiao : this.shitpisscum){
             output.append("Nivel perigo de fogo: ");
@@ -149,13 +149,13 @@ public class Instituicao {
         return maisPerigosa;
     }
 
-    private int indexRegiaoMaiorPerigo(){ //TODO: Rename to IndiceRegiaoMaiorPerigo
-        for(Regiao regiao : this.shitpisscum){
-            if(regiao.nome().equals(maiorPerigo().primeiro())){
-                return(this.shitpisscum.indexOf(regiao));
+    private int indiceRegiaoMaiorPerigo() {
+        int indice = 0;
+        for (Regiao regiao : this.shitpisscum) {
+            if (regiao.nome().equals(maiorPerigo().primeiro())) {
+                indice = this.shitpisscum.indexOf(regiao);
             }
         }
-        return(9999); //TODO: Clean this mess up.......
+        return indice;
     }
-
 }
