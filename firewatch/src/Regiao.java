@@ -170,7 +170,7 @@ public class Regiao {
         Arrays.sort(perigoLimites);
         for(int celula = 0; celula < perigoLimites.length; celula++) {
             if (diferencaAnos <= perigoLimites[celula]) {
-                return perigoLimites[celula + 1];
+                return celula+1;
             }
         }
         return celulaPerigo;
