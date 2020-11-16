@@ -117,8 +117,8 @@ public class Regiao {
     public NivelPerigo nivelPerigo(Calendar data, int[] tempoLimites) {
         // retorna o nível de perigo, ver forma de cálculo no início da pag.4 do enunciado
         int diferencaAnos = data.get(Calendar.YEAR) - this.ultFogo.get(Calendar.YEAR);
-        double nivelPerigo = 0.0;
         NivelPerigo nivelPerigoCor;
+        double nivelPerigo = 0.0;
         int racio;
         int ardiveis = this.ardiveis();
         int totalDeElementos = this.ambiente.length * this.ambiente[0].length;
@@ -162,5 +162,18 @@ public class Regiao {
 
     // Podemos fazer mais métodos que estes, desde que sejam privados
 
+    private double valorPerigo(int diferencaAnos, int[] tempoLimites, int totalDeElementos,){
+        double nivelPerigo = 0.0;
+        int ratio;
+        for(int celula = 0; celula < tempoLimites.length; celula++){
+            if(diferencaAnos <= tempoLimites[celula]){
+                nivelPerigo = tempoLimites[celula+1];
+            }
+        }
+
+        racio = (ardiveis - obstaculos)/totalDeElementos;
+
+        nivelPerigo *= 1+racio;
+    }
 
 }
