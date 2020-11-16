@@ -69,7 +69,7 @@ public class Instituicao {
                 output = regiao;
             }
         }
-        return output.alvoSimulacao();  // TODO
+        return output.alvoSimulacao();
     }
 
     public boolean podeAtuar() {
@@ -149,13 +149,13 @@ public class Instituicao {
         return maisPerigosa;
     }
 
-    private int indexRegiaoMaiorPerigo(){
+    private int indexRegiaoMaiorPerigo(){ //TODO: Rename to IndiceRegiaoMaiorPerigo
         for(Regiao regiao : this.shitpisscum){
-        if(regiao.nome().equals(maiorPerigo().primeiro())){
+            if(regiao.nome().equals(maiorPerigo().primeiro())){
                 return(this.shitpisscum.indexOf(regiao));
             }
         }
-        return(9999);
+        return(9999); //TODO: Clean this mess up.......
     }
 
 }

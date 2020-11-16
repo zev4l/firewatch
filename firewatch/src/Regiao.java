@@ -59,7 +59,6 @@ public class Regiao {
     public void registaFogo(Calendar data, List<Par<Integer, Integer>> sitios) {
         // Regista um novo fogo para a região, acontecido na data data, em que arderam
         // os elementos referidos em sitios
-        // TODO: registaFogo()
 
         for (Par<Integer,Integer> p: sitios) {
             if (this.ambiente[p.primeiro()][p.segundo()] == 'H' | this.ambiente[p.primeiro()][p.segundo()] == '.') {
@@ -164,13 +163,13 @@ public class Regiao {
     //     nivelPerigo *= 1+racio;
     // }
 
-    private static double calculaCelulaPerigo(int[] perigoLimites, int diferencaAnos){
+    private static double calculaCelulaPerigo(int[] perigoLimites, int diferencaAnos){ //TODO: Rename to calculaIndiceLimitePerigo
 
-        int celulaPerigo = 0;
         Arrays.sort(perigoLimites);
+        int celulaPerigo = 0;
         for(int celula = 0; celula < perigoLimites.length; celula++) {
             if (diferencaAnos <= perigoLimites[celula]) {
-                return celula+1;
+                return celula;
             }
         }
         return celulaPerigo;
@@ -183,7 +182,7 @@ public class Regiao {
         int totalDeElementos = this.ambiente.length * this.ambiente[0].length;
         int obstaculos = totalDeElementos - ardiveis;
 
-        double racio = (ardiveis - obstaculos) / totalDeElementos;
+        double racio = ((double)(ardiveis - obstaculos) / totalDeElementos);
 
         nivelPerigo *= 1 + racio;
 
