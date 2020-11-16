@@ -97,11 +97,12 @@ public class Instituicao {
         output.append("Regiao maior perigo: ");
         output.append(indexRegiaoMaiorPerigo() + "\n");
         output.append("-------- REGIOES -------\n");
+        // FIXME: tiraste o for das regiões daqui dawg :/ e a mention do nome
         output.append("Nivel perigo de fogo: \n");
         output.append(regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS));
         output.append(regiao.toString());
         output.append(imprimirTracos(20));
-        }
+
         output.append(imprimirAsteriscos(27));
 
         return output.toString();
