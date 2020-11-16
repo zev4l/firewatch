@@ -128,17 +128,8 @@ public class Regiao {
         // retorna o nível de perigo, ver forma de cálculo no início da pag.4 do enunciado
         int diferencaAnos = data.get(Calendar.YEAR) - this.ultFogo.get(Calendar.YEAR);
         NivelPerigo nivelPerigoCor;
-        double nivelPerigo = 0.0;
-        int racio;
-        int ardiveis = this.ardiveis();
-        int totalDeElementos = this.ambiente.length * this.ambiente[0].length;
-        int obstaculos = totalDeElementos - ardiveis;
 
-        nivelPerigo = calculaNivelPerigo(tempoLimites, diferencaAnos);
-
-        racio = (ardiveis - obstaculos)/totalDeElementos;
-
-        nivelPerigo *= 1+racio;
+        double nivelPerigo = calculaNivelPerigo(tempoLimites, diferencaAnos);
 
         if (Math.round(nivelPerigo) >= NivelPerigo.values().length) {
             nivelPerigoCor = NivelPerigo.values()[NivelPerigo.values().length - 1]; 
@@ -167,29 +158,36 @@ public class Regiao {
 
     // Podemos fazer mais métodos que estes, desde que sejam privados
 
-    // private double valorPerigo(int diferencaAnos, int[] tempoLimites, int totalDeElementos, int ardiveis, int obstaculos){
-    //     double nivelPerigo = 0.0;
-    //     int ratio;
-    //     for(int celula = 0; celula < tempoLimites.length; celula++){
-    //         if(diferencaAnos <= tempoLimites[celula]){
-    //             nivelPerigo = tempoLimites[celula+1];
-    //         }
-    //     }
 
     //     racio = (ardiveis - obstaculos)/totalDeElementos;
 
     //     nivelPerigo *= 1+racio;
     // }
 
-    private int calculaNivelPerigo(int[] perigoLimites, int diferencaAnos){
-        int nivelPerigo = 0;
+    private static double calculaCelulaPerigo(int[] perigoLimites, int diferencaAnos){
 
+        int celulaPerigo = 0;
         Arrays.sort(perigoLimites);
         for(int celula = 0; celula < perigoLimites.length; celula++) {
             if (diferencaAnos <= perigoLimites[celula]) {
                 return perigoLimites[celula + 1];
             }
         }
+        return celulaPerigo;
+    }
+
+    private double calculaNivelPerigo(int[] perigoLimites, int diferencaAnos) {
+
+        double nivelPerigo = calculaCelulaPerigo(perigoLimites, diferencaAnos);
+        int ardiveis = this.ardiveis();
+        int totalDeElementos = this.ambiente.length * this.ambiente[0].length;
+        int obstaculos = totalDeElementos - ardiveis;
+
+        double racio = (ardiveis - obstaculos) / totalDeElementos;
+
+        nivelPerigo *= 1 + racio;
+
         return nivelPerigo;
     }
+
 }

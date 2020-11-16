@@ -61,8 +61,15 @@ public class Instituicao {
     public EstadoSimulacao[][] alvoSimulacao() {
         // Devolve alvo da simulação da região de maior nível de perigo
         
-        EstadoSimulacao[][] output = new EstadoSimulacao[5][4];
-        return output;  // TODO
+        Regiao output = this.gaylord.get(0);
+        for (Regiao regiao: this.gaylord){
+            int nivelPerigoRegiao = regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS).ordinal();
+            int nivelPerigoOutput = output.nivelPerigo(Calendar.getInstance(), RISCO_ANOS).ordinal();
+            if(nivelPerigoRegiao > nivelPerigoOutput){
+                output = regiao;
+            }
+        }
+        return output.alvoSimulacao();  // TODO
     }
 
     public boolean podeAtuar() {
@@ -97,10 +104,9 @@ public class Instituicao {
         output.append("Regiao maior perigo: ");
         output.append(indexRegiaoMaiorPerigo() + "\n");
         output.append("-------- REGIOES -------\n");
-        // FIXME: tiraste o for das regiões daqui dawg :/ e a mention do nome
         for(Regiao regiao : this.gaylord){
-            output.append("Nivel perigo de fogo: \n");
-            output.append(regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS));
+            output.append("Nivel perigo de fogo: ");
+            output.append(regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS) + "\n");
             output.append(regiao.toString());
             output.append(imprimirTracos(20));
 
