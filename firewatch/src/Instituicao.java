@@ -38,7 +38,8 @@ public class Instituicao {
      * @param casas - Lista de posições de casas no ambiente.
      * @param estradas - Lista de posições de estradas no ambiente.
      * @param agua - Lista de posições de água no ambiente.
-     * @requires - 
+     * @requires - nome != null && ultFogo != null && largura != null
+     * casas, estradas, agua are List<Par<Integer, Integer>>.
      */
     public void adicionaRegiao(String nome, Calendar ultFogo, int largura, int altura,
                                 List<Par<Integer, Integer>> casas,
