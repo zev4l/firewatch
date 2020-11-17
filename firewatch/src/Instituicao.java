@@ -2,6 +2,25 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+//TODO: COMPLETAR TODOS OS REQUIRES
+//TODO: COMPLETAR TODOS OS REQUIRES
+//TODO: COMPLETAR TODOS OS REQUIRES
+//TODO: COMPLETAR TODOS OS REQUIRES
+//TODO: COMPLETAR TODOS OS REQUIRES
+//TODO: COMPLETAR TODOS OS REQUIRES
+//TODO: COMPLETAR TODOS OS REQUIRES
+//TODO: COMPLETAR TODOS OS REQUIRES
+//TODO: COMPLETAR TODOS OS REQUIRES
+
+/**
+ * @author Grupo 77 - Augusto Gouveia (55371), José Almeida (55373)
+ * @date Novembro 2020
+ * 
+ * Esta classe contém os métodos requiridos para criar regiões e 
+ * gerir a sua existência englobada na instituição.
+ * Completa com os métodos necessários para monitorizar o estado
+ * das regiões adicionadas a qualquer altura, e afetar as mesmas.
+ */
 public class Instituicao {
 
     // Relação entre o número de anos que passaram desde o último fogo e o nível de perigo 
@@ -22,15 +41,14 @@ public class Instituicao {
 
     
     /** 
-     * @param nome
-     * @param ultFogo
-     * @param largura
-     * @param altura
-     * @param casas
-     * @param List<Par<Integer
-     * @param estradas
-     * @param List<Par<Integer
-     * @param agua
+     * @param nome - O nome da região a adicionar.
+     * @param ultFogo - Data do último fogo a afetar a região.
+     * @param largura - Largura do ambiente da região.
+     * @param altura - Altura do ambiente da região.
+     * @param casas - Lista de posições de casas no ambiente.
+     * @param estradas - Lista de posições de estradas no ambiente.
+     * @param agua - Lista de posições de água no ambiente.
+     * @requires - 
      */
     public void adicionaRegiao(String nome, Calendar ultFogo, int largura, int altura,
                                 List<Par<Integer, Integer>> casas,
@@ -38,14 +56,14 @@ public class Instituicao {
                                 List<Par<Integer, Integer>> agua) {
 
         // Assumindo que ainda não existe uma região com este nome, 
-        //e que os dados são válidos, cria-a com os parametros referidos 
+        //e que os dados são válidos, cria-a com os parametros referidos.
         Regiao novaRegiao = new Regiao(nome, ultFogo, largura, altura, casas, estradas, agua);
         regioes.add(novaRegiao);
     }
 
     
     /** 
-     * @param nome
+     * @param nome - 
      * @return boolean
      */
     public boolean existeRegiao(String nome) {
