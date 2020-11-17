@@ -25,8 +25,7 @@ public class Instituicao {
 
 
     public Instituicao(String designacao) {
-
-        this.regioes = new ArrayList<Regiao>();
+        this.regioes = new ArrayList<>();
         this.designacao = designacao;
     }
 
@@ -75,12 +74,12 @@ public class Instituicao {
      */ 
     public List<Par<String,NivelPerigo>> niveisDePerigo() {
 
-        List<Par<String,NivelPerigo>> output = new ArrayList<Par<String,NivelPerigo>>();
+        List<Par<String,NivelPerigo>> output = new ArrayList<>();
 
 
         // Para cada regiao registada, adicionar um Par<nome, nivelDePerigo> ao output
         for (Regiao r: regioes) {
-            Par<String,NivelPerigo> elemento = new Par<String,NivelPerigo>(r.nome(), r.nivelPerigo(Calendar.getInstance(), RISCO_ANOS));
+            Par<String,NivelPerigo> elemento = new Par<>(r.nome(), r.nivelPerigo(Calendar.getInstance(), RISCO_ANOS));
             output.add(elemento);
         }
 
@@ -128,7 +127,7 @@ public class Instituicao {
 
     
     /** Regista um fogo na região especificada, com a data referida, afetando os sitios referidos.
-     * @param sitios - O nome da região cujo fogo irá afetar. 
+     * @param regiao - O nome da região cujo fogo irá afetar.
      * @param data - A data em que o fogo aconteceu.
      * @param sitios - Uma lista com as posições referentes aos sítios ardidos.
      * @requires regiao != null && data != null && sitios != null && data is Calendar && 
@@ -155,16 +154,16 @@ public class Instituicao {
         StringBuilder output = new StringBuilder();
 
         output.append(imprimirAsteriscos(27));
-        output.append("Designacao: " + this.designacao + "\n");   
-        output.append("Regiao maior perigo: ");
-        output.append(indiceRegiaoMaiorPerigo() + "\n");
+        output.append("Designacao: ").append(this.designacao).append("\n");
+        output.append("Regiao maior perigo: ").append(indiceRegiaoMaiorPerigo()).append("\n");
         output.append("-------- REGIOES -------\n");
 
         // Calcula nivelPerigo para cada regiao
         for(Regiao regiao : this.regioes){
     
-            output.append("Nivel perigo de fogo: ");
-            output.append(regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS) + "\n");
+            output.append("Nivel perigo de fogo: ")
+                    .append(regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS))
+                    .append("\n");
             output.append(regiao.toString());
             output.append(imprimirTracos(20));
 
