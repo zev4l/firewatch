@@ -2,16 +2,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-//TODO: COMPLETAR TODOS OS REQUIRES
-//TODO: COMPLETAR TODOS OS REQUIRES
-//TODO: COMPLETAR TODOS OS REQUIRES
-//TODO: COMPLETAR TODOS OS REQUIRES
-//TODO: COMPLETAR TODOS OS REQUIRES
-//TODO: COMPLETAR TODOS OS REQUIRES
-//TODO: COMPLETAR TODOS OS REQUIRES
-//TODO: COMPLETAR TODOS OS REQUIRES
-//TODO: COMPLETAR TODOS OS REQUIRES
-
 /**
  * @author Grupo 77 - Augusto Gouveia (55371), José Almeida (55373)
  * @date Novembro 2020
@@ -35,12 +25,13 @@ public class Instituicao {
 
 
     public Instituicao(String designacao) {
+
         this.regioes = new ArrayList<Regiao>();
         this.designacao = designacao;
     }
 
     
-    /** 
+    /** Adiciona uma regiao a  lista de regioes.
      * @param nome - O nome da região a adicionar.
      * @param ultFogo - Data do último fogo a afetar a região.
      * @param largura - Largura do ambiente da região.
@@ -62,12 +53,12 @@ public class Instituicao {
     }
 
     
-    /** 
-     * @param nome - 
-     * @return boolean
+    /** Verifica se a regiao referida esta registada na instituiçao.
+     * @param nome - O nome da região a verificar se existe.
+     * @return - Valor booleano referente à existência da região na instituição.
      */
     public boolean existeRegiao(String nome) {
-        // Devolve true se a região estiver registada nesta instituição
+
         for(Regiao regiao : this.regioes){
             if (nome.equals(regiao.nome())){
                 return true;
@@ -78,16 +69,16 @@ public class Instituicao {
     }
 
     
-    /** 
-     * @return List<Par<String, NivelPerigo>>
-     */
+    /** Constroi e devolve uma lista com informaçao sobre os niveis de perigo de cada regiao na instituiçao.
+     * @return - List<Par<String, NivelPerigo>> com objetos Par que incluem o nome das regoes e o respetivo nivel de perigo, 
+     * calculado relativamente ah data corrente e ah constante RISCO_ANOS.
+     */ 
     public List<Par<String,NivelPerigo>> niveisDePerigo() {
-        // Devolve os nomes e níveis de perigo de cara região registada,
-        // os níveis devem ser calculados relativamente à data corrente
-        // e À constante RISCO_ANOS
 
         List<Par<String,NivelPerigo>> output = new ArrayList<Par<String,NivelPerigo>>();
 
+
+        // Para cada regiao registada, adicionar um Par<nome, nivelDePerigo> ao output
         for (Regiao r: regioes) {
             Par<String,NivelPerigo> elemento = new Par<String,NivelPerigo>(r.nome(), r.nivelPerigo(Calendar.getInstance(), RISCO_ANOS));
             output.add(elemento);
@@ -98,17 +89,15 @@ public class Instituicao {
     }
 
     
-    /** 
-     * @return EstadoSimulacao[][]
+    /** Array bidimensional cujos elementos são representados por elementos do enumerado EstadoSimulacao.
+     * @return - Array bidimensional EstadoSimulacao[][] correspondente ao ambiente da regiao com maior nivel de perigo,
+     * em que os terrenos e casas nao ardidos sao representados por EstadoSimuacao.LIVRE, e a agua, estradas
+     * e elementos ja ardidos sao representados por EstadoSimulacao.OBSTACULO.
      */
     public EstadoSimulacao[][] alvoSimulacao() {
-        // Devolve alvo da simulação da região de maior nível de perigo
         
-
-
         Regiao regiaoMaisPerigosa = this.regioes.get(0);
 
-        
         for (Regiao regiao: this.regioes){
 
             int nivelPerigoRegiaoAtual = regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS).ordinal();
@@ -122,12 +111,11 @@ public class Instituicao {
     }
 
     
-    /** 
-     * @return boolean
+    /** Devolve valor booleano que simboliza se e possivel ou nao atuar sobre alguma das regioes.
+     * @return - Valor booleano, true se pelomenos para uma regiao regiao.ardiveis()>0, caso contrario
+     * false. 
      */
     public boolean podeAtuar() {
-        // Devolve true se existe pelo menos uma região com elementos ardíveis
-
 
         for (Regiao regiao: this.regioes) {
             if (regiao.ardiveis() > 0) {
@@ -139,12 +127,14 @@ public class Instituicao {
     }
 
     
-    /** 
-     * @param sitios
+    /** Regista um fogo na região especificada, com a data referida, afetando os sitios referidos.
+     * @param sitios - O nome da região cujo fogo irá afetar. 
+     * @param data - A data em que o fogo aconteceu.
+     * @param sitios - Uma lista com as posições referentes aos sítios ardidos.
+     * @requires regiao != null && data != null && sitios != null && data is Calendar && 
+     * sitios is List<Par<Integer, Integer>> && regiao is String
      */
     public void registaFogo(String regiao, Calendar data, List<Par<Integer, Integer>> sitios) {
-        // regista na região referida um fogo acontecido na data referida. 
-        // ATENÇÃO: APÓS ISTO PODE ACONTECER QUE A REGIÃO DE MAIOR NIVEL DE PERIGO MUDE.
         
         for (Regiao r: this.regioes) {
             if (r.nome().equals(regiao)) {
@@ -155,17 +145,24 @@ public class Instituicao {
     
     
     /** 
-     * @return String
+     * Constroi uma representação legível e bem estruturada da instituição, completa
+     * com informação sobre esta e todas as suas regiões, devolvendo-a.
+     * @return String que representa a instituição, incluindo informação sobre si 
+     * própria e todas as regiões registadas.
      */
     public String toString() {
-        // Self-explanatory
+
         StringBuilder output = new StringBuilder();
+
         output.append(imprimirAsteriscos(27));
         output.append("Designacao: " + this.designacao + "\n");   
         output.append("Regiao maior perigo: ");
         output.append(indiceRegiaoMaiorPerigo() + "\n");
         output.append("-------- REGIOES -------\n");
+
+        // Calcula nivelPerigo para cada regiao
         for(Regiao regiao : this.regioes){
+    
             output.append("Nivel perigo de fogo: ");
             output.append(regiao.nivelPerigo(Calendar.getInstance(), RISCO_ANOS) + "\n");
             output.append(regiao.toString());
@@ -177,45 +174,55 @@ public class Instituicao {
         return output.toString();
 }
 
+    // MÉTODOS ADICIONAIS (APENAS PARA USO INTERNO)
     
-    /** 
-     * @param number
-     * @return String
+    /** Constroi e devolve barra de asteriscos
+     * @param number - Quantidade de asteriscos a imprimir
+     * @return String, com number asteriscos seguidos e um newline no fim.
      */
-    // MÉTODOS ADICIONAIS (PARA USO INTERNO)
-
     private String imprimirAsteriscos(int number){
+
         StringBuilder output = new StringBuilder();
+
         for(int i = 0; i < number; i++){
             output.append("*");
         }
+
         output.append("\n");
+
         return output.toString();
     }
 
     
-    /** 
-     * @param number
-     * @return String
+    /** Constroi e devolve barra de tracos
+     * @param number - Quantidade de asteriscos a imprimir
+     * @return String, com number traços seguidos e um newline no fim.
      */
     private String imprimirTracos(int number){
+
         StringBuilder output = new StringBuilder();
+
         for(int i = 0; i < number; i++){
             output.append("-");
         }
+
         output.append("\n");
+
         return output.toString();
     }
 
-    
-    /** 
-     * @return Par<String, NivelPerigo>
+
+    /** Constroi e devolve objeto Par que inclui informação sobre a região com maior
+     * nível de perigo, incluido o seu nome e o seu nível de perigo.
+     * @return - Par<String, NivelPerigo> em que String é o nome da região e NivelPerigo
+     * é o seu valor de perigo conforme o enumerado NivelPerigo.
      */
     private Par<String,NivelPerigo> maiorPerigo() {
-        List<Par<String,NivelPerigo>> teste = niveisDePerigo();
-        Par<String,NivelPerigo> maisPerigosa = teste.get(0);
 
-        for (Par<String,NivelPerigo> r: teste) {
+        List<Par<String,NivelPerigo>> niveisDePerigo = niveisDePerigo();
+        Par<String,NivelPerigo> maisPerigosa = niveisDePerigo.get(0);
+
+        for (Par<String,NivelPerigo> r: niveisDePerigo) {
             if (r.segundo().ordinal() > maisPerigosa.segundo().ordinal()) {
                 maisPerigosa = r;
             } 
@@ -224,17 +231,20 @@ public class Instituicao {
         return maisPerigosa;
     }
 
-    
-    /** 
-     * @return int
+    /** Devolve indice da região mais perigosa na lista de regioes this.regioes.
+     * @return - Inteiro que representa o índice da região de maior perigo, 
+     * em this.regioes (lista de todas as regioes na instituição).
      */
     private int indiceRegiaoMaiorPerigo() {
+
         int indice = 0;
+
         for (Regiao regiao : this.regioes) {
             if (regiao.nome().equals(maiorPerigo().primeiro())) {
                 indice = this.regioes.indexOf(regiao);
             }
         }
+        
         return indice;
     }
 }
